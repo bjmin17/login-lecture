@@ -7,10 +7,10 @@ class User {
         this.body = body;
     }
 
-    login() {
+    async login() {
         const client = this.body;
-        const {id, psword} = UserStorage.getUserInfo(client.id);
-        console.log();
+        const { id, psword } = await UserStorage.getUserInfo(client.id);
+        
         if(id) {
             if( id === client.id && psword === client.psword) {
                 return {success : true};
@@ -23,7 +23,8 @@ class User {
 
     register() {
         const client = this.body;
-        UserStorage.save(client);
+        const response = UserStorage.save(client);
+        return response;
     }
 }
 
